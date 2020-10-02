@@ -7,7 +7,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once($CFG->dirroot . '/course/lib.php');
-require_once($CFG->libdir . '/custominfo/lib.php');
 
 /* @var $DB moodle_database */
 
@@ -24,7 +23,15 @@ require_once($CFG->libdir . '/custominfo/lib.php');
 function print_table_course_vs_rof($crsid, $rofdata) {
     global $DB, $OUTPUT;
 
-    $crsfields = custominfo_data::type('course')->get_structured_fields_short($crsid, true);
+    $handler = core_course\customfield\course_handler::create();
+	$datas = $handler->get_instance_data($crsid, true);
+	$crsfields = [];
+	foreach ($datas as $data) {
+		$cat = $data->get_field()->get_category()->get('name');
+		$shortname = $data->get_field()->get('shortname');
+		$crsfields[$cat][$shortname] = ['name' => $data->get_field()->get('name');, 'data' => $data->get_value()];
+	}
+     
     foreach ($crsfields as $category => $fields) {
         if ($category == 'Other fields' || $category == 'Autres champs') {
             continue;
