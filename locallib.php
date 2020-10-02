@@ -29,7 +29,7 @@ function print_table_course_vs_rof($crsid, $rofdata) {
 	foreach ($datas as $data) {
 		$cat = $data->get_field()->get_category()->get('name');
 		$shortname = $data->get_field()->get('shortname');
-		$crsfields[$cat][$shortname] = ['name' => $data->get_field()->get('name');, 'data' => $data->get_value()];
+		$crsfields[$cat][$shortname] = ['name' => $data->get_field()->get('name'), 'data' => $data->get_value()];
 	}
      
     foreach ($crsfields as $category => $fields) {
