@@ -36,8 +36,8 @@ function print_table_course_vs_rof($crsid, $rofdata) {
         if ($category == 'Other fields' || $category == 'Autres champs') {
             continue;
         }
-        $catid = $DB->get_field('custom_info_category', 'id', array('name' => $category));
-        $editurl = new moodle_url('/course/edit.php', array('id' => $crsid));
+        $catid = $DB->get_field('customfield_category', 'id', ['name' => $category]);
+        $editurl = new moodle_url('/course/edit.php', ['id' => $crsid]);
         $editurl->set_anchor('category_' . $catid);
         echo '<h4>' . $category . ' '
                 . $OUTPUT->action_icon($editurl, new pix_icon('t/edit', 'Modifier les métadonnées'))
